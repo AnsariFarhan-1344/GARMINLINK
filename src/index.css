@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  --color-olive: #556B2F;
+  --color-olive-dark: #3B4B20;
+  --color-olive-light: #708A3E;
+  --color-olive-subtle: #E7EBD9;
+  --color-olive-soft: #F0F2E8;
+
+  /* Turmeric / Haldi Yellow */
+  --color-turmeric: #E5A93C;
+  --color-haldi: #E5A93C;
+  --color-haldi-light: #FDF3D8;
+  --color-haldi-dark: #B45309;
+
+  /* Terracotta (Konkan Red Earth Soil) */
+  --color-terracotta: #C85A32;
+  --color-terracotta-dark: #A44320;
+  --color-terracotta-light: #F9EBE6;
+  --color-terracotta-deep: #7C2E13;
+
+  --color-charcoal: #263238;
+  --color-charcoal-muted: #5A6A64;
+  --color-charcoal-dark: #1A2226;
+
+  --color-gold: #E5A93C;
+  --color-gold-dark: #B45309;
+  --color-gold-light: #FDF3D8;
+
+  --color-forest: #556B2F;
+  --color-forest-dark: #3B4B20;
+  --color-forest-light: #708A3E;
+  --color-forest-subtle: #E7EBD9;
+  --color-forest-deep: #3B4B20;
+
+  --color-cream: #F5F2E9;
+  --color-cream-card: #FFFFFF;
+  --color-cream-darker: #EAE6D8;
+
+  --color-navy: #263238;
+  --color-navy-muted: #5A6A64;
+  --color-navy-800: #263238;
+  --color-navy-850: #1E282D;
+  --color-navy-900: #172024;
+
+  --color-rural-border: #DCD8C8;
+  --color-rural-muted: #5A6A64;
+  --color-rural-success: #556B2F;
+  --color-rural-warning: #E5A93C;
+  --color-rural-error: #C85A32;
+  --color-rural-info: #5A6A64;
+
+  --color-soft-green: #E7EBD9;
+
+  --font-display: "Baloo 2", "Mukta", "Noto Sans Devanagari", sans-serif;
+  --font-body: "Mukta", "Noto Sans Devanagari", "Inter", -apple-system, sans-serif;
+  --font-sans: "Mukta", "Noto Sans Devanagari", "Inter", -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #F5F2E9;
+    color: #263238;
+    overflow-x: hidden;
+    font-family: 'Mukta', 'Noto Sans Devanagari', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Baloo 2', 'Mukta', 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* Accessible Min 48px Tap Targets */
+.tap-target {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Handcrafted Rural UI Panels (Rooted in Konkan & Maharashtra) */
+.rural-card {
+  background: #FFFFFF;
+  border: 1px solid #DCD8C8;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 6px rgba(38, 50, 56, 0.04);
+  transition: all 0.2s ease-in-out;
+}
+
+.rural-card:hover {
+  border-color: #556B2F;
+  box-shadow: 0 6px 18px rgba(85, 107, 47, 0.08);
+}
+
+.rural-terracotta-card {
+  background: #F9EBE6;
+  border: 1px solid #E4B8A6;
+  border-radius: 1.25rem;
+}
+
+.rural-haldi-card {
+  background: #FDF3D8;
+  border: 1px solid #F6D58C;
+  border-radius: 1.25rem;
+}
+
+.rural-olive-card {
+  background: #E7EBD9;
+  border: 1px solid #CAD4B3;
+  border-radius: 1.25rem;
+}
+
+/* Subtle Warli Art SVG Background Pattern */
+.warli-bg-pattern {
+  background-color: #F5F2E9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23C85A32' fill-opacity='0.08'%3E%3C!-- Warli Figures %26 Tarpa Elements --%3E%3Ccircle cx='20' cy='20' r='3.5'/%3E%3Cpath d='M20 23.5 L15 35 L25 35 Z M20 35 L14 47 L26 47 Z'/%3E%3Cpath d='M15 30 L8 28 M25 30 L32 26' stroke='%23C85A32' stroke-width='1.5' stroke-opacity='0.08'/%3E%3Cpath d='M17 47 L12 58 M23 47 L28 58' stroke='%23C85A32' stroke-width='1.5' stroke-opacity='0.08'/%3E%3C!-- Hut --%3E%3Cpolygon points='85,15 105,15 95,5'/%3E%3Crect x='87' y='15' width='16' height='12' fill='none' stroke='%23C85A32' stroke-width='1.5' stroke-opacity='0.08'/%3E%3C!-- Palm / Tree branch --%3E%3Cpath d='M80 80 Q90 65 95 85 Q105 70 110 90' stroke='%23C85A32' stroke-width='1.5' fill='none' stroke-opacity='0.08'/%3E%3Ccircle cx='80' cy='85' r='2.5'/%3E%3C!-- Dancing pair --%3E%3Ccircle cx='50' cy='80' r='3'/%3E%3Cpolygon points='46,83 54,83 50,91'/%3E%3Cpolygon points='46,99 54,99 50,91'/%3E%3Ccircle cx='62' cy='80' r='3'/%3E%3Cpolygon points='58,83 66,83 62,91'/%3E%3Cpolygon points='58,99 66,99 62,91'/%3E%3Cpath d='M50 87 L62 87' stroke='%23C85A32' stroke-width='1.5' stroke-opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.warli-bg-terracotta {
+  background-color: #A44320;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.09'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3Cpolygon points='16,23 24,23 20,31'/%3E%3Cpolygon points='16,39 24,39 20,31'/%3E%3Ccircle cx='70' cy='65' r='3'/%3E%3Cpolygon points='66,68 74,68 70,76'/%3E%3Cpolygon points='66,84 74,84 70,76'/%3E%3Cpath d='M40 50 L60 50' stroke='%23FFFFFF' stroke-width='1' stroke-opacity='0.09'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F2E9;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCD8C8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #556B2F;
+}
+
+/* Leaflet Map Overrides for Light Rural Theme */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: #F5F2E9 !important;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #FFFFFF !important;
+  color: #263238 !important;
+  border: 1px solid #DCD8C8 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 8px 24px rgba(38, 50, 56, 0.12) !important;
+}
+
+.leaflet-popup-tip {
+  background: #FFFFFF !important;
+  border-left: 1px solid #DCD8C8;
+  border-top: 1px solid #DCD8C8;
+}
