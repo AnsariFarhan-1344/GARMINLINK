@@ -8,6 +8,9 @@ import { Header } from './components/layout/Header';
 import { Navbar, NavTab } from './components/layout/Navbar';
 import { SimulationBanner } from './components/simulation/SimulationBanner';
 import { NotificationDrawer } from './components/notifications/NotificationDrawer';
+import { GaadiSahayakProvider } from './context/GaadiSahayakContext';
+import { FloatingMicButton } from './components/assistant/FloatingMicButton';
+import { GaadiSahayakModal } from './components/assistant/GaadiSahayakModal';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -99,6 +102,10 @@ const MainLayout: React.FC = () => {
       {/* Notification Drawer Modal */}
       <NotificationDrawer isOpen={isNotifOpen} onClose={() => setIsNotifOpen(false)} />
 
+      {/* Gaadi Sahayak Voice AI Assistant (Bottom-Right 56px Mic & Modal Sheet) */}
+      <FloatingMicButton />
+      <GaadiSahayakModal onNavigateTab={setActiveTab} />
+
       {/* Footer */}
       <footer className="bg-[#F5F2E9] border-t border-[#DCD8C8] py-8 text-center text-xs text-[#5A6A64]">
         <div className="max-w-7xl mx-auto px-4 space-y-2">
@@ -122,8 +129,10 @@ export default function App() {
       <AuthProvider>
         <LocationProvider>
           <LogisticsProvider>
-            <MainLayout />
-            <LocationPermissionModal />
+            <GaadiSahayakProvider>
+              <MainLayout />
+              <LocationPermissionModal />
+            </GaadiSahayakProvider>
           </LogisticsProvider>
         </LocationProvider>
       </AuthProvider>

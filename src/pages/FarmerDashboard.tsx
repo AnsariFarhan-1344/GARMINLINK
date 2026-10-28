@@ -26,6 +26,8 @@ import {
   X
 } from 'lucide-react';
 
+import { useGaadiSahayak } from '../context/GaadiSahayakContext';
+
 interface FarmerDashboardProps {
   onNavigate: (tab: any) => void;
 }
@@ -33,6 +35,7 @@ interface FarmerDashboardProps {
 export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({ onNavigate }) => {
   const { t, formatNumber } = useLanguage();
   const { currentUser } = useAuth();
+  const { prefilledBooking, clearPrefilledBooking } = useGaadiSahayak();
   const { createShipment, pools, shipments, returnTrips, honestMetrics, reportShipmentProblem } = useLogistics();
 
   const [formData, setFormData] = useState({
@@ -47,6 +50,19 @@ export const FarmerDashboard: React.FC<FarmerDashboardProps> = ({ onNavigate }) 
     mandiDestination: 'Nashik Central APMC Subzi & Fruit Yard',
     collectionPoint: 'Janori Farm Gate No. 42 (Dindori Cluster)'
   });
+
+  useEffect(() => {
+    if (prefilledBooking) {
+      setFormData(prev => ({
+        ...prev,
+        cropName: prefilledBooking.productName || prev.cropName,
+        category: prefilledBooking.goodsCategory || prev.category,
+        weightKg: prefilledBooking.weightKg !== undefined ? prefilledBooking.weightKg : prev.weightKg,
+        mandiDestination: prefilledBooking.destination || prev.mandiDestination
+      }));
+      clearPrefilledBooking();
+    }
+  }, [prefilledBooking, clearPrefilledBooking]);
 
   const [transportMode, setTransportMode] = useState<'SOLO' | 'POOLED' | 'RETURN'>('POOLED');
   const [bookingSuccess, setBookingSuccess] = useState<string | null>(null);

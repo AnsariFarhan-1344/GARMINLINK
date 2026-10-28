@@ -107,6 +107,18 @@ export const mockUsers: User[] = [
     isVerified: true
   },
   {
+    id: 'user-transporter-6',
+    name: 'Mahendra Vichare',
+    phone: '+91 94224 88319',
+    role: 'TRANSPORTER_DRIVER',
+    organizationName: 'Vichare Rural Express',
+    district: 'Ratnagiri',
+    taluka: 'Chiplun',
+    village: 'Chiplun Bypass',
+    rating: 4.8,
+    isVerified: true
+  },
+  {
     id: 'user-hub-1',
     name: 'Vilas Shinde',
     phone: '+91 98224 55678',
@@ -406,6 +418,33 @@ export const mockVehicles: Vehicle[] = [
     isAvailable: true,
     status: 'IN_TRANSIT',
     etaMinutes: 45
+  },
+  {
+    id: 'veh-6',
+    vehicleNumber: 'MH-08-AJ-8820',
+    driverName: 'Mahendra Vichare',
+    driverPhone: '+91 94224 88319',
+    driverId: 'user-transporter-6',
+    category: 'PICKUP',
+    makeModel: 'Mahindra Bolero Maxi Truck Plus',
+    maxPayloadKg: 1250,
+    currentPayloadKg: 700,
+    availablePayloadKg: 550,
+    currentLocation: {
+      name: 'Khed-Chiplun Road',
+      district: 'Ratnagiri',
+      taluka: 'Chiplun',
+      address: 'NH-66 Bahadur Shaikh Corridor, Chiplun',
+      coordinates: { lat: 17.5800, lng: 73.4800 }
+    },
+    speedKmh: 40,
+    heading: 190,
+    rating: 4.8,
+    completedTrips: 215,
+    isAvailable: true,
+    status: 'RETURNING',
+    etaMinutes: 35,
+    activeRouteId: 'route-dapoli-khed'
   }
 ];
 

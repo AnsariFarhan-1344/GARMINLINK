@@ -45,6 +45,8 @@ import {
   MandiBazaarIcon 
 } from '../components/common/RuralIcons';
 
+import { useGaadiSahayak } from '../context/GaadiSahayakContext';
+
 interface EntrepreneurDashboardProps {
   onNavigate: (tab: any) => void;
   onTrackShipment?: (trackingNumber: string) => void;
@@ -53,6 +55,7 @@ interface EntrepreneurDashboardProps {
 export const EntrepreneurDashboard: React.FC<EntrepreneurDashboardProps> = ({ onNavigate }) => {
   const { language, t, formatNumber } = useLanguage();
   const { currentUser } = useAuth();
+  const { prefilledBooking, clearPrefilledBooking } = useGaadiSahayak();
   const { 
     shipments, 
     pools, 
@@ -108,6 +111,27 @@ export const EntrepreneurDashboard: React.FC<EntrepreneurDashboardProps> = ({ on
 
   // Selected Transport Mode: Solo / Pooled / Return-trip
   const [selectedTransportMode, setSelectedTransportMode] = useState<'SOLO' | 'POOLED' | 'RETURN'>('POOLED');
+
+  // Sync prefilled data from Gaadi Sahayak voice assistant
+  useEffect(() => {
+    if (prefilledBooking) {
+      setFormData(prev => ({
+        ...prev,
+        productName: prefilledBooking.productName || prev.productName,
+        goodsCategory: prefilledBooking.goodsCategory || prev.goodsCategory,
+        weightKg: prefilledBooking.weightKg !== undefined ? prefilledBooking.weightKg : prev.weightKg,
+        destination: prefilledBooking.destination || prev.destination,
+        destinationType: prefilledBooking.destinationType || prev.destinationType
+      }));
+
+      // Focus / scroll smoothly to booking form
+      setTimeout(() => {
+        bookingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+
+      clearPrefilledBooking();
+    }
+  }, [prefilledBooking, clearPrefilledBooking]);
 
   const [bookingSuccessMsg, setBookingSuccessMsg] = useState<string | null>(null);
   const [offlineNotice, setOfflineNotice] = useState<string | null>(null);

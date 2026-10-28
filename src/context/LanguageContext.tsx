@@ -8,8 +8,41 @@ const LATIN_DIGITS_MAP: Record<string, string> = {
   '५': '5', '६': '6', '७': '7', '८': '8', '९': '9'
 };
 
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function indexToLetterTag(idx: number): string {
+  let s = '';
+  let n = idx;
+  do {
+    s = ALPHABET[n % 26] + s;
+    n = Math.floor(n / 26) - 1;
+  } while (n >= 0);
+  return s;
+}
+
 export const toDevanagariDigits = (val: string | number): string => {
-  return String(val).replace(/[0-9]/g, (d) => DEVANAGARI_DIGITS[Number(d)]);
+  const str = String(val);
+
+  // Protect vehicle registration plates (e.g. MH-08-E-4219, MH 12 Q 8821, MH-04-T-1904)
+  // and internal vehicle IDs / hub codes (e.g. veh-1, veh-2, HUB-RAT-DAP-01)
+  const vehicleAndCodeRegex = /\b([A-Z]{2}[-\s]?[0-9]{1,2}[-\s]?[A-Z]{1,3}[-\s]?[0-9]{1,4}|veh(?:icle)?[-_][0-9a-zA-Z_-]+|HUB-[0-9a-zA-Z_-]+)\b/gi;
+
+  const placeholders: string[] = [];
+  const masked = str.replace(vehicleAndCodeRegex, (match) => {
+    placeholders.push(match);
+    return `__PROTECTEDID_${indexToLetterTag(placeholders.length - 1)}__`;
+  });
+
+  // Convert remaining Latin digits [0-9] to Devanagari
+  const converted = masked.replace(/[0-9]/g, (d) => DEVANAGARI_DIGITS[Number(d)]);
+
+  // Restore protected vehicle IDs and codes
+  return converted.replace(/__PROTECTEDID_([A-Z]+)__/g, (_, tag) => {
+    let idx = 0;
+    for (let i = 0; i < tag.length; i++) {
+      idx = idx * 26 + (tag.charCodeAt(i) - 65 + 1);
+    }
+    return placeholders[idx - 1] || '';
+  });
 };
 
 export const toLatinDigits = (val: string | number): string => {
@@ -92,7 +125,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Replace params if provided
     if (params) {
       Object.entries(params).forEach(([pKey, pVal]) => {
-        const formattedVal = formatDigitsByLang(pVal, language);
+        const isVehicleOrDriverKey = /^(vehicleId|vehicleNumber|driver|driverName|vehicle|plate)$/i.test(pKey);
+        const formattedVal = isVehicleOrDriverKey ? String(pVal) : formatDigitsByLang(pVal, language);
         text = text.replace(new RegExp(`{${pKey}}`, 'g'), formattedVal);
       });
     }

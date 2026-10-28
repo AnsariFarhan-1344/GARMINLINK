@@ -134,6 +134,16 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
+// Gaadi Sahayak Voice AI Assistant endpoint
+app.post('/api/assistant', async (req: Request, res: Response) => {
+  try {
+    const handler = (await import('../api/assistant')).default;
+    return handler(req, res);
+  } catch (err: any) {
+    res.status(200).json({ fallback: true, error: err?.message || 'Local handler error' });
+  }
+});
+
 // Get all vehicles with live coordinates
 app.get('/api/vehicles', (req: Request, res: Response) => {
   res.json(vehiclesState);
